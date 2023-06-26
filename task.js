@@ -25,43 +25,64 @@ function summElementsWorker(...arr) {
 }
 
 function differenceMaxMinWorker(...arr) {
-  return getArrayParams(arr).max - getArrayParams(arr).min;
+  let  min = Infinity;
+  let  max = -Infinity;
+  let i;
+
+  if(arr.length === 0) return 0;
+
+  for(i = 0; i < arr.length; i++) {
+    if(min > arr[i]) min = arr[i];
+    if(max < arr[i]) max = arr[i];
+  }
+
+  return max - min;
 }
 
 function differenceEvenOddWorker(...arr) {
   let sumEvenElement = 0;
   let sumOddElement = 0;
-  for (let i = 0; i < arr.length; i++) {
-    sum = sum + arr[i];
-    if (arr[i] % 2 == 0) {
-    sumEvenElement = arr[i];
-    } else {
-      sumOddElement = arr[i];
-    }
-    return { sumEvenElement: sumEvenElement, sumOddElement: sumOddElement };
+  let i;
+
+  if(arr.length === 0) return 0;
+
+  for(i = 0; i < arr.length; i++) {
+    if((arr[i] % 2) === 0) sumEvenElement += arr[i]; else sumOddElement += arr[i];
   }
+
+  return sumEvenElement - sumOddElement;
 }
 
 function averageEvenElementsWorker(...arr) {
   let sumEvenElement = 0;
   let countEvenElement = 0;
-  for (let i = 0; i < arr.length; i++) {
-    sum = sum + arr[i];
-    if (arr[i] % 2 == 0) {
-    sumEvenElement = arr[i];
-    countEvenElement = arr[i];
+  let i;
+
+  if(arr.length === 0) return 0;
+
+  for(i = 0; i < arr.length; i++) {
+    if((arr[i] % 2) === 0) {
+      sumEvenElement += arr[i]; 
+      countEvenElement++;
+    }
   }
-    return { sumEvenElement: sumEvenElement, countEvenElement: countEvenElement };
-  }
+
+  return sumEvenElement / countEvenElement;
 }
 
 function makeWork (arrOfArr, func) {
-  let max = -Infinity;
-  for (let i = 0; i < arrOfArr.length; i++) {
-    let arrSum = func(arrOfArr[i]);
-    if (arrSum > max) {
-      max = arrSum;
-    }
-  return max;
+  let maxWorkerResult = -Infinity;
+  let i;
+  let res;
+  let numbers;
+
+  if(arrOfArr.length === 0) return 0;
+
+  for(i = 0; i < arrOfArr.length; i++) {
+    numbers = arrOfArr[i];
+    res = func(...numbers);
+    if(res > maxWorkerResult) maxWorkerResult = res;
   }
+
+  return maxWorkerResult;
 }
